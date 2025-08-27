@@ -1,0 +1,33 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: postgres
+  password: postgres
+  host: localhost
+  port: 5432
+  timeout: 3000 # 3s
+  variables:
+    statement_timeout: 2000 # 2s
+
+development:
+  <<: *default
+  database: authentication_api
+
+test:
+  <<: *default
+  database: authentication_api_test
+
+staging:
+  <<: *default
+  database: authentication_api_staging
+  username: authentication_api_staging
+  password: <%= ENV['authentication_api_DB_PASSWORD'] %>
+  host: <%= ENV['authentication_api_DB_HOST'] %>
+
+production:
+  <<: *default
+  database: authentication_api_production
+  username: authentication_api_production
+  password: <%= ENV['authentication_api_DB_PASSWORD'] %>
+  host: <%= ENV['authentication_api_DB_HOST'] %>
